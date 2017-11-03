@@ -1,5 +1,3 @@
-package prop.assignment0;
-
 public class Lexeme {
 	private Object value;
 	private Token token;

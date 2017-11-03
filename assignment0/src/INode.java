@@ -1,5 +1,3 @@
-package prop.assignment0;
-
 public interface INode {
 	/**
 	 * The argument array 'args' is only needed for the requirements for grade A and B.
