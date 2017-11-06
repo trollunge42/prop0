@@ -1,18 +1,19 @@
-import java.io.File;
 import java.io.IOException;
 
 public class Parser implements IParser {
 
-    private File openFile;
+    Tokenizer tokenizer = new Tokenizer();
+
+    public Parser(){
+    }
 
     @Override
     public void open(String fileName) throws IOException, TokenizerException {
-        openFile = new File(fileName);
+        tokenizer.open(fileName);
     }
 
     @Override
     public INode parse() throws IOException, TokenizerException, ParserException {
-
         return null;
     }
 
