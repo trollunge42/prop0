@@ -2,6 +2,7 @@ import java.io.IOException;
 
 
 public class Tokenizer implements ITokenizer{
+
     Scanner scanner;
 
     @Override
