@@ -2,13 +2,14 @@ import java.io.IOException;
 
 public class Parser implements IParser {
 
-    Tokenizer tokenizer = new Tokenizer();
+    Tokenizer tokenizer;
 
     public Parser(){
     }
 
     @Override
     public void open(String fileName) throws IOException, TokenizerException {
+        tokenizer = new Tokenizer();
         tokenizer.open(fileName);
     }
 
