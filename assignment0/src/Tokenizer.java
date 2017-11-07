@@ -26,8 +26,32 @@ public class Tokenizer implements ITokenizer{
         }else if(ch==Scanner.EOF){
             return new Lexeme(ch, Token.EOF);
         }else if(Character.isLetter(ch)){
-            return new Lexeme(ch, Token.IDENT);
+            String str = "";
+            while(Character.isLetter(ch)){
+                str += ch;
+                try {
+                    moveNext();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (TokenizerException e) {
+                    e.printStackTrace();
+                }
+                ch=scanner.current();
+            }
+            return new Lexeme(str, Token.IDENT);
         } else if(Character.isDigit(ch)){
+            String str = "";
+            while(Character.isDigit(ch)){
+                str += ch;
+                try {
+                    moveNext();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (TokenizerException e) {
+                    e.printStackTrace();
+                }
+                ch = scanner.current();
+            }
             return new Lexeme(ch, Token.INT_LIT);
         } else if(ch=='='){
             return new Lexeme(ch, Token.ASSIGN_OP);
