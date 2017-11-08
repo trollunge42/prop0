@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class Parser implements IParser {
-    static int arraySize= 0;
+    static int arraySize = 0;
     static int arrayPlace = 0;
     private INode assNode;
     Tokenizer tokenizer;
@@ -17,12 +17,13 @@ public class Parser implements IParser {
 
     @Override
     public INode parse() throws IOException, TokenizerException, ParserException {
-        //assNode = new AssignmentNode(tokenizer);
-        return null;
+        assNode = new AssignmentNode(tokenizer);
+        //om prog2, blockNode
+        return assNode;
     }
 
     @Override
     public void close() throws IOException {
-
+        tokenizer.close();
     }
 }

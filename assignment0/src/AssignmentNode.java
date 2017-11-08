@@ -23,7 +23,6 @@ public class AssignmentNode implements INode {
         if(semi.token()==Token.SEMICOLON){
             t.moveNext();
             Parser.arraySize++;
-            //TODO om prog2, ny assign
         } else throw new ParserException("Semicolon missing");
     }
 
