@@ -1,12 +1,8 @@
-public class Evaluator implements INode {
+public class Evaluator {
 
-    @Override
     public Object evaluate(Object[] args) throws Exception {
-        return null;
+        String str = "hej";
+        return str;
     }
 
-    @Override
-    public void buildString(StringBuilder builder, int tabs) {
-
-    }
 }

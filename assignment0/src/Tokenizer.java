@@ -14,13 +14,10 @@ public class Tokenizer implements ITokenizer{
     @Override
     public Lexeme current() {
         char ch = scanner.current();
-
         if(Character.isSpaceChar(ch)) {
             try {
-                moveNext();
+                scanner.moveNext();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (TokenizerException e) {
                 e.printStackTrace();
             }
         }else if(ch==Scanner.EOF){
@@ -30,10 +27,8 @@ public class Tokenizer implements ITokenizer{
             while(Character.isLetter(ch)){
                 str += ch;
                 try {
-                    moveNext();
+                    scanner.moveNext();
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (TokenizerException e) {
                     e.printStackTrace();
                 }
                 ch=scanner.current();
@@ -44,10 +39,8 @@ public class Tokenizer implements ITokenizer{
             while(Character.isDigit(ch)){
                 str += ch;
                 try {
-                    moveNext();
+                    scanner.moveNext();
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (TokenizerException e) {
                     e.printStackTrace();
                 }
                 ch = scanner.current();
@@ -77,32 +70,10 @@ public class Tokenizer implements ITokenizer{
     @Override
     public void moveNext() throws IOException, TokenizerException {
         scanner.moveNext();
-    }
+     }
 
     @Override
     public void close() throws IOException {
 
     }
-/*
-    public void tokenize(){
-        char tempChar = Scanner.current();
-        char isChar = 0;
-        int isInt = 0;
-        char isId = 0;
-        for(char c : character){
-            if(tempChar == c){
-                isChar = tempChar;
-                return;
-            }
-        } if(isChar==0){
-            for(int i : ints){
-                if(tempChar==i){
-                    isInt=tempChar;
-                }
-            }if(isInt==0){
-                isId = tempChar;
-            }
-        }
-    }
-    */
 }
