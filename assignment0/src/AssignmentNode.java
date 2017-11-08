@@ -24,6 +24,9 @@ public class AssignmentNode implements INode {
             t.moveNext();
             Parser.arraySize++;
         } else throw new ParserException("Semicolon missing");
+        if(t.current().token()!=Token.EOF){
+            INode assNode = new AssignmentNode(t);
+        }
     }
 
     @Override
