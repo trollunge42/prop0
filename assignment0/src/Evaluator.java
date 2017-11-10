@@ -1,60 +1,70 @@
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Evaluator {
 
     public Object evaluate(Object[] args) throws Exception {
-        int index = 0;
-        Lexeme[] calcArray = new Lexeme[Parser.arraySize];
-        LinkedList<Lexeme> calcList = new LinkedList<Lexeme>();
-        for(int i = 2; i<Parser.arraySize; i++){
-            Lexeme lex = (Lexeme)args[i];
-            if(lex.token()==Token.LEFT_PAREN){
-                Lexeme
-                findParen();
-                startIndex = i;
-                args[i] = new Lexeme(null, null);
-                int k = 0;
-                Lexeme[] calcArray2 = new Lexeme[Parser.arraySize-i];
-                for(int j = i++; j<Parser.arraySize;i++){
-                    Lexeme lex2 = (Lexeme)args[j];
-                    k++;
-                    if(lex2.token()==Token.RIGHT_PAREN){
-                        args[j] = new Lexeme(null,null);
-                        break;
-                    }
-                    calcArray2[k] = lex2;
-                    args[j] = new Lexeme(null,null);
-                }
-                lex = calculate(calcArray2, k);
-            }
-            calcArray[index] = lex;
-            index++;
-        }
-        String str = "hej";
+        Lexeme result = parenting(Arrays.copyOfRange(args, 2, Parser.arraySize));
+        Lexeme id = (Lexeme)args[0];
+        String str = id.value() + " = " + result.value();
         return str;
     }
 
-    private Lexeme calculate(Lexeme[] calcArray, int arraySize) {
-        Lexeme result;
-            for(int i = 0; i<arraySize; i++){
-                if(calcArray[i].token()==Token.MULT_OP){
-                    int a = (int)calcArray[i-1].value();
-                    calcArray[i-1] = new Lexeme(null,null);
-                    int b = (int)calcArray[i+1].value();
-                    calcArray[i+1] = new Lexeme(null,null);
-                    calcArray[i] = new Lexeme(a*b,Token.INT_LIT);
-                } else if(calcArray[i].token()==Token.DIV_OP){
-                    int a = (int)calcArray[i-1].value();
-                    calcArray[i-1] = new Lexeme(null,null);
-                    int b = (int)calcArray[i+1].value();
-                    calcArray[i+1] = new Lexeme(null,null);
-                    calcArray[i] = new Lexeme(a/b,Token.INT_LIT);
+    private Lexeme parenting(Object[] array){
+        LinkedList<Lexeme> calcList = new LinkedList<>();
+        for(int i = 0; i < array.length; i++){
+            Lexeme lex = (Lexeme)array[i];
+            if(lex.token()==Token.LEFT_PAREN){
+                for(int j = array.length; j > i; j++){
+                    Lexeme lex2 = (Lexeme)array[j];
+                    if(lex2.token()==Token.RIGHT_PAREN){
+                        Object[] subArray = Arrays.copyOfRange(array, i+1, j-1);
+                        lex2 = parenting(subArray);
+                        lex = lex2;
+                        i=j+1;
+                        break;
+                    }
                 }
             }
-            for(int i = 0; i<arraySize;i++){
-                if(calcArray[i])
-            }
+            calcList.add(lex);
+        }
+        Lexeme result = calculate(calcList);
         return result;
     }
 
+    private Lexeme calculate(LinkedList<Lexeme> calcList) {
+        Lexeme result;
+        LinkedList<Lexeme> nextList = new LinkedList<>();
+        for(int i = 0; i<calcList.size(); i++){
+            if(calcList.get(i).token()==Token.MULT_OP){
+                int a = (int)calcList.get(i-1).value();
+                int b = (int)calcList.get(i+1).value();
+                i++;
+                calcList.set(i, new Lexeme(a*b,Token.INT_LIT));
+                nextList.removeLast();
+            } else if(calcList.get(i).token()==Token.DIV_OP){
+                int a = (int)calcList.get(i-1).value();
+                int b = (int)calcList.get(i+1).value();
+                i++;
+                calcList.set(i, new Lexeme(a/b, Token.INT_LIT));
+                nextList.removeLast();
+            }
+            nextList.add(calcList.get(i));
+        }
+        for(int i = 0; i<nextList.size();i++){
+            if(nextList.get(i).token()==Token.ADD_OP){
+                double a = (double)nextList.get(i-1).value();
+                double b = (double)nextList.get(i+1).value();
+                i++;
+                nextList.set(i,new Lexeme(a+b, Token.INT_LIT));
+            } else if(nextList.get(i).value()==Token.SUB_OP){
+                double a = (double)nextList.get(i-1).value();
+                double b = (double)nextList.get(i+1).value();
+                i++;
+                nextList.set(i, new Lexeme(a-b, Token.INT_LIT));
+            }
+        }
+        result = nextList.getLast();
+        return result;
+    }
 }
