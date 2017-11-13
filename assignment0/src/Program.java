@@ -10,6 +10,7 @@ public class Program {
 		StringBuilder builder = null;
 		FileOutputStream stream = null;
 		OutputStreamWriter writer = null;
+		args = new String[]{"C:\\Users\\tdv-\\IdeaProjects\\prop0\\assignment0\\program1.txt", "C:\\Users\\tdv-\\IdeaProjects\\prop0\\assignment0\\output.txt"};
 		
 		try {
 			try {
@@ -32,6 +33,7 @@ public class Program {
 				writer.write(builder.toString());
 			}
 			catch (Exception exception) {
+				exception.printStackTrace();
 				System.out.println("EXCEPTION: " + exception);
 			}
 			finally {

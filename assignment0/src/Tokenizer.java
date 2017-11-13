@@ -32,11 +32,7 @@ public class Tokenizer implements ITokenizer{
             String str = "";
             while(Character.isLetter(ch)){
                 str += ch;
-                try {
-                    scanner.moveNext();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                scanner.moveNext();
                 ch=scanner.current();
             }
             current = new Lexeme(str, Token.IDENT);
@@ -44,33 +40,36 @@ public class Tokenizer implements ITokenizer{
             String str = "";
             while(Character.isDigit(ch)){
                 str += ch;
-                try {
-                    scanner.moveNext();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                scanner.moveNext();
                 ch = scanner.current();
             }
-            current = new Lexeme(str, Token.INT_LIT);
+            current = new Lexeme(Double.valueOf(str).doubleValue(), Token.INT_LIT);
         } else if(ch=='='){
             current = new Lexeme(ch, Token.ASSIGN_OP);
+            scanner.moveNext();
         } else if(ch=='-'){
             current = new Lexeme(ch, Token.SUB_OP);
+            scanner.moveNext();
         } else if(ch=='+'){
             current = new Lexeme(ch, Token.ADD_OP);
+            scanner.moveNext();
         } else if(ch=='*'){
             current = new Lexeme(ch, Token.MULT_OP);
+            scanner.moveNext();
         } else if(ch=='/'){
             current = new Lexeme(ch, Token.DIV_OP);
+            scanner.moveNext();
         } else if(ch=='('){
             current = new Lexeme(ch, Token.LEFT_PAREN);
+            scanner.moveNext();
         } else if(ch==')'){
             current = new Lexeme(ch, Token.RIGHT_PAREN);
+            scanner.moveNext();
         } else if(ch==';'){
             current = new Lexeme(ch, Token.SEMICOLON);
+            scanner.moveNext();
         } else throw new TokenizerException("Can't tokenize");
         //TODO curlys?
-        scanner.moveNext();
      }
 
     @Override

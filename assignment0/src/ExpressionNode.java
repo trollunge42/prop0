@@ -38,7 +38,7 @@ public class ExpressionNode implements INode {
             for(int i = 0; i < tabs; i++)
                 builder.append("\t");
             builder.append(addSub.toString()+"\n");
-            express.buildString(builder,tabs+1);
+            express.buildString(builder,tabs);
         }
     }
 }

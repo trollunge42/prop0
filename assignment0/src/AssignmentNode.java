@@ -9,7 +9,7 @@ public class AssignmentNode implements INode {
 
     public AssignmentNode(Tokenizer t) throws ParserException, IOException, TokenizerException {
         id=t.current();
-        if (id.token()==Token.INT_LIT){
+        if (id.token()==Token.IDENT){
             t.moveNext();
             Parser.arraySize++;
         } else throw new ParserException("ID missing");
@@ -21,12 +21,13 @@ public class AssignmentNode implements INode {
         exprNode = new ExpressionNode(t);
         semi = t.current();
         if(semi.token()==Token.SEMICOLON){
-            t.moveNext();
+            //t.moveNext();
             Parser.arraySize++;
         } else throw new ParserException("Semicolon missing");
-        if(t.current().token()!=Token.EOF){
+        /*if(t.current().token()!=Token.EOF){
             INode assNode = new AssignmentNode(t);
         }
+        */
     }
 
     @Override
@@ -52,13 +53,13 @@ public class AssignmentNode implements INode {
         tabs++;
         for(int i = 0; i < tabs; i++)
             builder.append("\t");
-        builder.append(id.toString());
+        builder.append(id.toString() + "\n");
         for(int i = 0; i < tabs; i++)
             builder.append("\t");
-        builder.append(ass.toString());
+        builder.append(ass.toString() + "\n");
         exprNode.buildString(builder, tabs);
         for(int i = 0; i < tabs; i++)
             builder.append("\t");
-        builder.append(semi.toString());
+        builder.append(semi.toString() +"\n");
     }
 }
