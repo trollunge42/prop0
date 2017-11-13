@@ -22,7 +22,7 @@ public class Tokenizer implements ITokenizer{
     @Override
     public void moveNext() throws IOException, TokenizerException {
         char ch = scanner.current();
-        while(Character.isSpaceChar(ch)) {
+        while(Character.isWhitespace(ch)) {
             scanner.moveNext();
             ch = scanner.current();
         }
@@ -65,11 +65,15 @@ public class Tokenizer implements ITokenizer{
         } else if(ch==')'){
             current = new Lexeme(ch, Token.RIGHT_PAREN);
             scanner.moveNext();
-        } else if(ch==';'){
+        } else if(ch==';') {
             current = new Lexeme(ch, Token.SEMICOLON);
             scanner.moveNext();
+        } else if(ch=='{') {
+            current = new Lexeme(ch, Token.LEFT_CURLY);
+            scanner.moveNext();
+        }else if(ch=='}'){
+            current = new Lexeme(ch, Token.RIGHT_CURLY);
         } else throw new TokenizerException("Can't tokenize");
-        //TODO curlys?
      }
 
     @Override

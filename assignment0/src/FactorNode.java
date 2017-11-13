@@ -2,14 +2,14 @@ import java.io.IOException;
 
 public class FactorNode implements INode {
 
-    private Lexeme anInt;
+    private Lexeme intOrId;
     private Lexeme leftParent;
     private INode expressNode;
     private Lexeme rightParent;
 
     public FactorNode(Tokenizer t) throws ParserException, IOException, TokenizerException {
-        if(t.current().token()==Token.INT_LIT){
-            anInt = t.current();
+        if(t.current().token()==Token.INT_LIT || t.current().token()==Token.IDENT){
+            intOrId = t.current();
             t.moveNext();
             Parser.arraySize++;
         } else if(t.current().token()==Token.LEFT_PAREN){
@@ -28,8 +28,8 @@ public class FactorNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        if(anInt!=null){
-            args[Parser.arrayPlace] = anInt;
+        if(intOrId!=null){
+            args[Parser.arrayPlace] = intOrId;
             Parser.arrayPlace++;
         } else if(leftParent!=null){
             args[Parser.arrayPlace] = leftParent;
@@ -47,10 +47,10 @@ public class FactorNode implements INode {
             builder.append("\t");
         builder.append(getClass().getSimpleName() + "\n");
         tabs++;
-        if(anInt!=null){
+        if(intOrId!=null){
             for(int i = 0; i < tabs; i++)
                 builder.append("\t");
-            builder.append(anInt.toString() + "\n");
+            builder.append(intOrId.toString() + "\n");
         }else if(leftParent!=null) {
             for (int i = 0; i < tabs; i++)
                 builder.append("\t");

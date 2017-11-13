@@ -1,7 +1,6 @@
 import java.io.IOException;
 
 public class AssignmentNode implements INode {
-    private Evaluator e;
     private Lexeme id;
     private Lexeme ass;
     private Lexeme semi;
@@ -21,7 +20,7 @@ public class AssignmentNode implements INode {
         exprNode = new ExpressionNode(t);
         semi = t.current();
         if(semi.token()==Token.SEMICOLON){
-            //t.moveNext();
+            t.moveNext();
             Parser.arraySize++;
         } else throw new ParserException("Semicolon missing");
         /*if(t.current().token()!=Token.EOF){
@@ -32,17 +31,14 @@ public class AssignmentNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        e = new Evaluator();
-        if (args==null){
-            args=new Object[Parser.arraySize];
-        }
         args[Parser.arrayPlace] = id;
         Parser.arrayPlace++;
         args[Parser.arrayPlace] = ass;
         Parser.arrayPlace++;
         exprNode.evaluate(args);
         args[Parser.arrayPlace] = semi;
-        return e.evaluate(args);
+        Parser.arrayPlace++;
+        return args;
     }
 
     @Override
