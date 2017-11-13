@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class Evaluator {
-
     HashMap<String, Double> resultMap = new HashMap<>();
 
     public Object evaluate(Object[] args) throws Exception {
