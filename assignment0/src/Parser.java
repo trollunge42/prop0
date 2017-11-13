@@ -3,7 +3,7 @@ import java.io.IOException;
 public class Parser implements IParser {
     static int arraySize = 0;
     static int arrayPlace = 0;
-    private INode assNode;
+    private INode blockNode;
     Tokenizer tokenizer;
 
     public Parser() throws Exception {
@@ -17,9 +17,9 @@ public class Parser implements IParser {
 
     @Override
     public INode parse() throws IOException, TokenizerException, ParserException {
-        assNode = new AssignmentNode(tokenizer);
+        blockNode = new BlockNode(tokenizer);
         //om prog2, blockNode
-        return assNode;
+        return blockNode;
     }
 
     @Override
