@@ -10,6 +10,10 @@ public class Program {
 		StringBuilder builder = null;
 		FileOutputStream stream = null;
 		OutputStreamWriter writer = null;
+
+		/*
+		change this to whatever path your file is located in
+		 */
 		args = new String[]{"C:\\Users\\Marcus\\Downloads\\program2.txt", "C:\\Users\\Marcus\\Downloads\\output.txt"};
 		
 		try {
