@@ -52,21 +52,15 @@ public class Evaluator {
 
     private Lexeme calculate(LinkedList<Lexeme> calcList) {
         LinkedList<Lexeme> nextList = new LinkedList<>();
-        double a;
-        double b;
         for(int i = 0; i<calcList.size(); i++){
             if(calcList.get(i).token()==Token.MULT_OP){
-                a = getValue(calcList.get(i-1));
-                b = getValue(calcList.get(i+1));
-                calcList.set(++i, new Lexeme(a*b,Token.INT_LIT));
+                calcList.set(++i, new Lexeme(getValue(calcList.get(i-2)) * getValue(calcList.get(i)),Token.INT_LIT));
                 if(nextList.getFirst()==nextList.getLast()){
                     nextList = new LinkedList<>();
                 }else
                     nextList.removeLast();
             } else if(calcList.get(i).token()==Token.DIV_OP){
-                a = getValue(calcList.get(i-1));
-                b = getValue(calcList.get(i+1));
-                calcList.set(++i, new Lexeme(a/b,Token.INT_LIT));
+                calcList.set(++i, new Lexeme(getValue(calcList.get(i-2)) / getValue(calcList.get(i)),Token.INT_LIT));
                 if(nextList.getFirst()==nextList.getLast()){
                     nextList = new LinkedList<>();
                 }else
@@ -76,20 +70,8 @@ public class Evaluator {
         }
         for(int i = 0; i<nextList.size();i++){
             if(nextList.get(i).token()==Token.ADD_OP){
-                /*a = getValue(nextList.get(i-1));
-                b = getValue(nextList.get(i+1));
-                System.out.println("addop a,b: " + a +" " + b);
-                i++;
-                nextList.set(i, new Lexeme(a+b,Token.INT_LIT));
-                */
                 nextList.set(++i,new Lexeme(getValue(nextList.get(i-2)) + getValue(nextList.get(i)), Token.INT_LIT));
             } else if(nextList.get(i).token()==Token.SUB_OP){
-                /*a = getValue(nextList.get(i-1));
-                b = getValue(nextList.get(i+1));
-                System.out.println("subop a,b: " + a +" " + b);
-                i++;
-                nextList.set(i, new Lexeme(a-b,Token.INT_LIT));
-                */
                 nextList.set(++i,new Lexeme(getValue(nextList.get(i-2)) - getValue(nextList.get(i)), Token.INT_LIT));
             }
         }

@@ -18,7 +18,6 @@ public class Parser implements IParser {
     @Override
     public INode parse() throws IOException, TokenizerException, ParserException {
         blockNode = new BlockNode(tokenizer);
-        //om prog2, blockNode
         return blockNode;
     }
 
