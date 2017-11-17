@@ -10,7 +10,7 @@ public class Program {
 		StringBuilder builder = null;
 		FileOutputStream stream = null;
 		OutputStreamWriter writer = null;
-		args = new String[]{"C:\\Users\\tdv-\\IdeaProjects\\prop0\\assignment0\\program2.txt", "C:\\Users\\tdv-\\IdeaProjects\\prop0\\assignment0\\output.txt"};
+		args = new String[]{"C:\\Users\\Marcus\\Downloads\\program2.txt", "C:\\Users\\Marcus\\Downloads\\output.txt"};
 		
 		try {
 			try {

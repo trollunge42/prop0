@@ -5,7 +5,7 @@ public class BlockNode implements INode {
     private Evaluator e;
     private Lexeme leftCurly;
     private Lexeme rightCurly;
-    private StatementNode stateNode;
+    private StatementsNode stateNode;
 
     public BlockNode(Tokenizer t) throws IOException, TokenizerException, ParserException {
         leftCurly = t.current();
@@ -13,7 +13,7 @@ public class BlockNode implements INode {
             t.moveNext();
             Parser.arraySize++;
         } else throw new ParserException("Left curly is missing");
-        stateNode = new StatementNode(t);
+        stateNode = new StatementsNode(t);
         rightCurly = t.current();
         if(rightCurly.token()==Token.RIGHT_CURLY){
             Parser.arraySize++;

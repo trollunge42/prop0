@@ -26,9 +26,7 @@ public class Tokenizer implements ITokenizer{
             scanner.moveNext();
             ch = scanner.current();
         }
-        if(ch==Scanner.EOF){
-            current = new Lexeme(ch, Token.EOF);
-        }else if(Character.isLetter(ch)){
+        if(Character.isLetter(ch)) {
             String str = "";
             while(Character.isLetter(ch)){
                 str += ch;
@@ -36,7 +34,8 @@ public class Tokenizer implements ITokenizer{
                 ch=scanner.current();
             }
             current = new Lexeme(str, Token.IDENT);
-        } else if(Character.isDigit(ch)){
+            str = "";
+        } else if(Character.isDigit(ch)) {
             String str = "";
             while(Character.isDigit(ch)){
                 str += ch;
@@ -44,37 +43,58 @@ public class Tokenizer implements ITokenizer{
                 ch = scanner.current();
             }
             current = new Lexeme(Double.valueOf(str).doubleValue(), Token.INT_LIT);
-        } else if(ch=='='){
-            current = new Lexeme(ch, Token.ASSIGN_OP);
-            scanner.moveNext();
-        } else if(ch=='-'){
-            current = new Lexeme(ch, Token.SUB_OP);
-            scanner.moveNext();
-        } else if(ch=='+'){
-            current = new Lexeme(ch, Token.ADD_OP);
-            scanner.moveNext();
-        } else if(ch=='*'){
-            current = new Lexeme(ch, Token.MULT_OP);
-            scanner.moveNext();
-        } else if(ch=='/'){
-            current = new Lexeme(ch, Token.DIV_OP);
-            scanner.moveNext();
-        } else if(ch=='('){
-            current = new Lexeme(ch, Token.LEFT_PAREN);
-            scanner.moveNext();
-        } else if(ch==')'){
-            current = new Lexeme(ch, Token.RIGHT_PAREN);
-            scanner.moveNext();
-        } else if(ch==';') {
-            current = new Lexeme(ch, Token.SEMICOLON);
-            scanner.moveNext();
-        } else if(ch=='{') {
-            current = new Lexeme(ch, Token.LEFT_CURLY);
-            scanner.moveNext();
-        }else if(ch=='}'){
-            current = new Lexeme(ch, Token.RIGHT_CURLY);
-        } else throw new TokenizerException("Can't tokenize");
-     }
+        }else {
+            switch(ch) {
+                case Scanner.EOF:
+                    current = new Lexeme(ch, Token.EOF);
+                    break;
+                case '=':
+                    current = new Lexeme(ch, Token.ASSIGN_OP);
+                    scanner.moveNext();
+                    break;
+                case '-':
+                    current = new Lexeme(ch, Token.SUB_OP);
+                    scanner.moveNext();
+                    break;
+                case '+':
+                    current = new Lexeme(ch, Token.ADD_OP);
+                    scanner.moveNext();
+                    break;
+
+                case '*':
+                    current = new Lexeme(ch, Token.MULT_OP);
+                    scanner.moveNext();
+                    break;
+
+                case '/':
+                    current = new Lexeme(ch, Token.DIV_OP);
+                    scanner.moveNext();
+                    break;
+                case '(':
+                    current = new Lexeme(ch, Token.LEFT_PAREN);
+                    scanner.moveNext();
+                    break;
+
+                case ')':
+                    current = new Lexeme(ch, Token.RIGHT_PAREN);
+                    scanner.moveNext();
+                    break;
+                case ';':
+                    current = new Lexeme(ch, Token.SEMICOLON);
+                    scanner.moveNext();
+                    break;
+                case '{':
+                    current = new Lexeme(ch, Token.LEFT_CURLY);
+                    scanner.moveNext();
+                    break;
+                case '}':
+                    current = new Lexeme(ch, Token.RIGHT_CURLY);
+                    break;
+                default:
+                    throw new TokenizerException("Can't tokenize");
+            }
+        }
+    }
 
     @Override
     public void close() throws IOException {

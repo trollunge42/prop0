@@ -1,14 +1,14 @@
 import java.io.IOException;
 
-public class StatementNode implements INode {
+public class StatementsNode implements INode {
 
     private AssignmentNode assNode;
-    private StatementNode stateNode;
+    private StatementsNode stateNode;
 
-    public StatementNode(Tokenizer t) throws TokenizerException, ParserException, IOException {
+    public StatementsNode(Tokenizer t) throws TokenizerException, ParserException, IOException {
         assNode = new AssignmentNode(t);
         if(t.current().token()!=Token.RIGHT_CURLY){
-            stateNode = new StatementNode(t);
+            stateNode = new StatementsNode(t);
         }
     }
 
