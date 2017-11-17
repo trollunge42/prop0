@@ -60,12 +60,10 @@ public class Tokenizer implements ITokenizer{
                     current = new Lexeme(ch, Token.ADD_OP);
                     scanner.moveNext();
                     break;
-
                 case '*':
                     current = new Lexeme(ch, Token.MULT_OP);
                     scanner.moveNext();
                     break;
-
                 case '/':
                     current = new Lexeme(ch, Token.DIV_OP);
                     scanner.moveNext();
@@ -74,7 +72,6 @@ public class Tokenizer implements ITokenizer{
                     current = new Lexeme(ch, Token.LEFT_PAREN);
                     scanner.moveNext();
                     break;
-
                 case ')':
                     current = new Lexeme(ch, Token.RIGHT_PAREN);
                     scanner.moveNext();
