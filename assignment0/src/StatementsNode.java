@@ -28,7 +28,7 @@ public class StatementsNode implements INode {
         assNode.buildString(builder, tabs+1);
         if(stateNode!=null){
             stateNode.buildString(builder, tabs+1);
-        } else{
+        } else {
             for(int i = 0; i < tabs; i++)
                 builder.append("\t");
             builder.append(getClass().getSimpleName() + "\n");
